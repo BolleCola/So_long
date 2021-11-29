@@ -3,6 +3,8 @@
 
 #include "./mlx/mlx.h"
 #include <stdio.h>
+#include <stdlib.h>
+// gcc -Lmlx -lmlx -framework OpenGL -framework AppKit game.a
 
 typedef struct s_data {
     void *img;
@@ -18,7 +20,5 @@ typedef struct s_vars{
 }   t_vars;
 
 void    my_mlx_pixel_put(t_data *data, int x, int y, int color);
-
-int     key_hook(int keycode, t_vars *vars);
 
 #endif
