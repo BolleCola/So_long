@@ -1,0 +1,27 @@
+/* XPM */
+static char *bf408c973a414bf390a345712d3311bfKY19nv4R8lPquaye[] = {
+/* columns rows colors chars-per-pixel */
+"18 16 5 1 ",
+"  c None",
+". c #181425",
+"X c #52333F",
+"o c #8F4D57",
+"O c #BD6A62",
+/* pixels */
+"      X....X      ",
+"    X.oooooo.X    ",
+"   .ooOOOOOOoo.   ",
+"  XoOOooooooOOoX  ",
+"  .oOooOOOOooOo.  ",
+"  .oOOooooooOOo.  ",
+"  ..ooOOOOOOoo..  ",
+"  .X..oooooo..X.  ",
+" .XoXXX....XXXoX. ",
+".oOooXXoXXoXXooOo.",
+".XooXXXOooOXXXooX.",
+".XXX..XoOOoX..XXX.",
+" ...  .oOOo.  ... ",
+"      .XooX.      ",
+"       .XX.       ",
+"        ..        "
+};

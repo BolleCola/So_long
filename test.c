@@ -12,10 +12,11 @@ int close(int keycode, t_vars *vars, t_data img)
 {
 	static int i;
 	static int j;
+	
 	if (!j)
-		j = 320;
+		j = 0;
 	if (!i)
-		i = 100;
+		i = 0;
 	if (keycode == 53)
 	{
 		mlx_destroy_window(vars->mlx, vars->win);
@@ -25,14 +26,14 @@ int close(int keycode, t_vars *vars, t_data img)
 	{
 		img.img = mlx_new_image(vars->mlx, 640, 480);
 		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-		my_mlx_pixel_put(&img, j, i++, 0xFF67C5);
+		my_mlx_pixel_put(&img, j, i++, 0xFFC0CB);
 		mlx_put_image_to_window(vars->mlx, vars->win, img.img, 0, 0);
 	}
 	if (keycode == 13)
 	{
 		img.img = mlx_new_image(vars->mlx, 640, 480);
 		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-		my_mlx_pixel_put(&img, j, i--, 0x6A329F);
+		my_mlx_pixel_put(&img, j, i--, 0xFFC0CB);
 		mlx_put_image_to_window(vars->mlx, vars->win, img.img, 0, 0);
 	}
 	if (keycode == 2)
@@ -49,11 +50,12 @@ int close(int keycode, t_vars *vars, t_data img)
 		my_mlx_pixel_put(&img, j--, i, 0xFFFFFF);
 		mlx_put_image_to_window(vars->mlx, vars->win, img.img, 0, 0);
 	}
+	return (0);
 }
 
-int	render_next_frame(t_vars *vars, t_data img)
+int	render_next_frame(t_vars *vars)
 {
-	mlx_hook(vars->win, 2, 1L>>0, close, vars);
+	return (mlx_hook(vars->win, 2, 1L>>0, close, vars));
 }
 
 int main(void)
@@ -61,24 +63,65 @@ int main(void)
     t_vars vars;
 	t_data img;
 		
-	char *path = "./Grass.xpm";
+	char *grass = "./pack/xpm/Grass.xpm";
+	char *rock = "./pack/xpm/Rock.xpm";
+	char *chest = "./pack/xpm/chest_c.xpm";
+	char *pers = "./pack/xpm/perso_f.xpm";
 	int	hauteur = 16;
 	int largeur = 16;
-	
+	int	i;
+	int j;
+	j = 0;
+	i = 0;
+
 	vars.mlx = mlx_init();
-	img.img = mlx_xpm_file_to_image(vars.mlx, path, &hauteur, &largeur);
-
-
-
-
+	vars.win = mlx_new_window(vars.mlx, 320, 160, "Bolle's Dungeon");
+	img.img = mlx_xpm_file_to_image(vars.mlx, grass, &hauteur, &largeur);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	while (i <= 480)
+	{
+		if (i >= 480 && j < 640)
+		{
+			j+=16;
+			i = 0;
+		}
+		else
+		{
+			mlx_put_image_to_window(vars.mlx, vars.win, img.img, j, i);
+			i+=16;
+		}
+	}
+	img.img = mlx_xpm_file_to_image(vars.mlx, rock, &hauteur, &largeur);
+	i = 0;
+	j = 0;
+	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+	while (i <= 160)
+	{	
+		mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, i+=16);
+	}
+	while (j <= 320)
+	{
+		mlx_put_image_to_window(vars.mlx, vars.win, img.img, j+=16, 0);
+	}
+	i = 0;
+	while (i <= 160)
+	{
+		mlx_put_image_to_window(vars.mlx, vars.win, img.img, 304, i+=16);
+	}
+	j = 0;
+	while (j <= 320)
+	{
+		mlx_put_image_to_window(vars.mlx, vars.win, img.img, j+=16, 144);
+	}
+	img.img = mlx_xpm_file_to_image(vars.mlx, chest, &hauteur, &largeur);
+	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 32, 16);
+	mlx_loop_hook(vars.mlx, render_next_frame, &vars);
+	mlx_loop(vars.mlx);
+	
 	/*vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, 640, 480, "Bolle's Dungeon");
 	mlx_loop_hook(vars.mlx, render_next_frame, &vars);
 	mlx_loop(vars.mlx);*/
-
-
-
-
 
 	/*void    *mlx_win;
    	vars.mlx = mlx_init();
