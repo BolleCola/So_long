@@ -31,6 +31,7 @@ $(NAME) : $(PNTC)
 	@cp ./mlx/libmlx.a $(NAME)
 	@$(CC) $(CFLAG) -c $(PNTC)
 	@ar $(ARFLAGS) $(NAME) $(PNTO)
+	@$(CC) -Lmlx -lmlx -framework OpenGL -framework AppKit $(NAME)
 
 clean :
 	@$(MAKE) -C ./mlx clean
