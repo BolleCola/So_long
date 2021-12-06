@@ -20,7 +20,7 @@ CC = gcc
 
 RM = rm -f
 
-PNTC = test.c
+PNTC = main.c utilitis.c map.c map_utils.c get_line_map.c get_line_utils.c
 
 PNTO = $(PNTC:.c=.o)
 
