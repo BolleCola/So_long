@@ -14,8 +14,10 @@
 // gcc -Lmlx -lmlx -framework OpenGL -framework AppKit game.a
 
 typedef struct s_map{
-    char *mapnb;
-    char *mapb;
+    char 	*mapnb;
+    char 	*mapb;
+    int		h_map;
+	int		l_map;
 }   t_map;
 
 typedef struct s_wind{
@@ -23,13 +25,43 @@ typedef struct s_wind{
     int l;
 }   t_wind;
 
+typedef struct s_path{
+	char	*chest;
+	char	*exit;
+	char	*grass;
+	char	*rock;
+	char	*persof;
+	char	*persob;
+	char	*persol;
+	char	*persor;
+}	t_path;
+
+typedef struct s_chest{
+	int	x;
+	int	y;
+}	t_chest;
+
+typedef struct s_exit{
+	int	x;
+	int	y;
+}	t_exit;
+
+typedef struct s_perso{
+	int	x;
+	int	y;
+	int	i;
+}	t_perso;
+
 typedef struct s_vars{
-    void *mlx;
-    void *win;
-    void *img;
-    char *addr;
-    t_map map;
-    t_wind wind;
+    void 	*mlx;
+    void 	*win;
+    void 	*img;
+    t_map 	map;
+    t_wind 	wind;
+	t_path	path;
+	t_chest	chest;
+	t_perso	perso;
+	t_exit	exit;
 }   t_vars;
 
 void    generate_map(t_vars *vars);
@@ -64,6 +96,30 @@ void	*ft_calloc_two(size_t count, size_t size);
 
 void    error();
 
-int chara(char let, char *mem);
+int 	chara(char let, char *mem, int i);
+
+void	path(t_vars *vars);
+
+void    set_image(t_vars *vars);
+
+void	pos_perso(t_vars *vars, char let, int i, int n);
+
+void	put_chest(t_vars *vars);
+
+void	put_exit(t_vars *vars);
+
+void    front(t_vars *vars);
+
+void    back(t_vars *vars);
+
+void    left(t_vars *vars);
+
+void    right(t_vars *vars);
+
+void	put_grass(t_vars *vars, int x, int y);
+
+void	cal_i(t_vars *vars);
+
+void	cal_p(t_vars *vars);
 
 #endif

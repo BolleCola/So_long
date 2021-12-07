@@ -39,11 +39,8 @@ void    error()
     exit (1);
 }
 
-int chara(char let, char *mem)
+int chara(char let, char *mem, int i)
 {
-    int i;
-
-    i = 0;
     while (mem[i])
 	{
 		if (mem[i] == let)
@@ -51,4 +48,29 @@ int chara(char let, char *mem)
 		i++;
 	}
     return (0);
+}
+
+void	pos_perso(t_vars *vars, char let, int i, int n)
+{
+	int g;
+	int j;
+	
+	j = 0;
+	g = 0;
+	while (vars->map.mapb[i])
+	{
+		if (g >= (l_map(vars->map.mapb) + 1))
+		{
+			g = 0;
+			j++;
+		}
+		if (vars->map.mapb[i] == let)
+		{
+			vars->perso.x = (g * 16);
+			vars->perso.y = (j * 16);
+			break ;
+		}
+		g++;
+		i++;
+	}
 }

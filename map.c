@@ -1,93 +1,15 @@
 #include "so_long.h"
 
-/*void	snd_create_map(t_vars *vars, char *mem, char **mp)
-{
-	int	i;
-	int	j;
-	int	g;
-
-    j = 0;
-	g = 0;
-	i = 0;
-	printf("deuxieme fonction\n");
-	while (j < h_map(mem) || mem[i])
-	{
-		while (mem[i])
-		{
-			if (mem[i] == '\n')
-				break ;
-			printf("ici-");
-			//mp[j][g] = mem[i];
-			i++;
-			g++;
-		}
-		mp[j][g] = '\0';
-		printf("\nmp %d : %s\n", j, mp[j]);
-		g = 0;
-		i++;
-		j++;
-	}
-	vars->map.map = mp;
-}
-
-static void	create_map(t_vars *vars, char *mem)
-{
-	char	**mp;
-	int		j;
-	int		g;
-	int		i;
-
-	j = 0;
-	g = 0;
-	mp = (char **)malloc(h_map(mem));
-	while (j < h_map(mem))
-	{
-		mp[j] = ft_calloc_two(l_map(&mem[g]) + 1, 1);
-		while (mem[g++])
-		{
-			if (mem[g] == '\n')
-				break ;
-		}
-		g++;
-		j++;
-	}
-	//snd_create_map(&*vars, mem, mp);
-	j = 0;
-	g = 0;
-	i = 0;
-	printf("deuxieme fonction\n");
-	while (j < h_map(mem))
-	{
-		while (mem[i])
-		{
-			if (mem[i] == '\n')
-				break ;
-			printf("ici-");
-			mp[j][g] = mem[i];
-			i++;
-			g++;
-		}
-		mp[j][g] = '\0';
-		printf("\nmp %d : %s\n", j, mp[j]);
-		printf("\nmp + 1 : %s\n", mp[j+1]);
-		printf("i : %d\n", i);
-		g = 0;
-		i++;
-		j++;
-	}
-	//vars->map.map = mp;
-}
-*/
-void	error_map_two(char *mem)
+static void	error_map_two(char *mem)
 {
 	int	c;
 
 	c = 0;
-	if (chara('C', mem) == 0)
+	if (chara('C', mem, 0) == 0)
 		error();
-	if (chara('E', mem) == 0)
+	if (chara('E', mem, 0) == 0)
 		error();
-	if (chara('P', mem) == 0)
+	if (chara('P', mem, 0) == 0)
 		error();
 	if (h_map(mem) >= l_map(mem))
 		error();
@@ -97,9 +19,17 @@ void	error_map_two(char *mem)
 			error();
 		c += (l_map(mem) + 1);
 	}
+	c = 0;
+	while (mem[c])
+	{
+		if (mem[c] != '1' && mem[c] != 'C' && mem[c] != '0' && mem[c] != 'E' 
+			&& mem[c] != 'P' && mem[c] != '\n' && mem[c] != '\0')
+			error();
+		c++;
+	}
 }
 
-void	error_map(t_vars *vars, char *mem, int x, int c)
+static void	error_map(t_vars *vars, char *mem, int x, int c)
 {
 	int	i;
 	int	j;
@@ -149,7 +79,6 @@ static void create_nb(t_vars *vars, char *mem)
 	}
 	memnb[j] = '\0';
 	vars->map.mapnb = memnb;
-	free(memnb);
 }
 
 static void	create_win(t_vars *vars, char *mem)
@@ -195,5 +124,6 @@ void	generate_map(t_vars *vars)
 	create_win(&*vars, mem);
 	error_map(&*vars, mem, 0, 0);
 	vars->map.mapb = mem;
-	//free(mem);
+	vars->map.h_map = h_map(mem);
+	vars->map.l_map = l_map(mem);
 }
