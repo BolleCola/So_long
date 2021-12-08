@@ -15,6 +15,7 @@
 
 typedef struct s_map{
     char 	*mapnb;
+	char	*mapnbm;
     char 	*mapb;
     int		h_map;
 	int		l_map;
@@ -27,7 +28,9 @@ typedef struct s_wind{
 
 typedef struct s_path{
 	char	*chest;
+	char	*chesto;
 	char	*exit;
+	char	*h;
 	char	*grass;
 	char	*rock;
 	char	*persof;
@@ -39,11 +42,13 @@ typedef struct s_path{
 typedef struct s_chest{
 	int	x;
 	int	y;
+	int	nb;
 }	t_chest;
 
 typedef struct s_exit{
 	int	x;
 	int	y;
+	int	o;
 }	t_exit;
 
 typedef struct s_perso{
@@ -56,6 +61,8 @@ typedef struct s_vars{
     void 	*mlx;
     void 	*win;
     void 	*img;
+	int		haut;
+	int		larg;
     t_map 	map;
     t_wind 	wind;
 	t_path	path;
@@ -121,5 +128,11 @@ void	put_grass(t_vars *vars, int x, int y);
 void	cal_i(t_vars *vars);
 
 void	cal_p(t_vars *vars);
+
+void	chest_open(t_vars *vars);
+
+void	exit_open(t_vars *vars);
+
+void	exit_prog(t_vars *vars);
 
 #endif

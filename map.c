@@ -78,7 +78,9 @@ static void create_nb(t_vars *vars, char *mem)
 		memnb[j++] = mem[i++];
 	}
 	memnb[j] = '\0';
-	vars->map.mapnb = memnb;
+	vars->map.mapnb = ft_strdup(memnb);
+	vars->map.mapnbm = ft_strdup(memnb);
+	free(memnb);
 }
 
 static void	create_win(t_vars *vars, char *mem)
@@ -123,7 +125,8 @@ void	generate_map(t_vars *vars)
 	create_nb(&*vars, mem);
 	create_win(&*vars, mem);
 	error_map(&*vars, mem, 0, 0);
-	vars->map.mapb = mem;
+	vars->map.mapb = ft_strdup(mem);
 	vars->map.h_map = h_map(mem);
 	vars->map.l_map = l_map(mem);
+	free(mem);
 }

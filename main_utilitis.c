@@ -37,7 +37,9 @@ size_t	ft_strlen(const char *str)
 void	path(t_vars *vars)
 {
 	vars->path.chest = "./pack/xpm/chest_c.xpm";
+	vars->path.chesto = "./pack/xpm/chest_o.xpm";
 	vars->path.exit = "./pack/xpm/Sign.xpm";
+	vars->path.h = "./pack/xpm/Heart.xpm";
 	vars->path.grass = "./pack/xpm/Grass.xpm";
 	vars->path.rock = "./pack/xpm/Rock.xpm";
 	vars->path.persof = "./pack/xpm/perso_f.xpm";

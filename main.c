@@ -3,7 +3,7 @@
 static void esc(t_vars *vars)
 {
     mlx_destroy_window(vars->mlx, vars->win);
-    exit (1);
+	exit_prog(&*vars);
 }
 
 static int    keyhook(int keycode, t_vars *vars)
@@ -17,7 +17,7 @@ static int    keyhook(int keycode, t_vars *vars)
     if (keycode == 0)
         left(&*vars);
     if (keycode == 2)
-        right(&*vars); 
+        right(&*vars);
     return (0);
 }
 
@@ -28,6 +28,9 @@ int main ()
     generate_map(&vars);
     path(&vars);
     cal_i(&vars);
+	vars.haut = 16;
+	vars.larg = 16;
+	vars.chest.nb = 0;
     vars.mlx = mlx_init();
     vars.win = mlx_new_window(vars.mlx, (vars.map.l_map * 16), (vars.map.h_map * 16), "Bolle's Dungeon !!!");
     set_image(&vars);

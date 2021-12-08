@@ -28,18 +28,16 @@ static void	pos_exit(t_vars *vars, char let, int i, int n)
 		i++;
 	}
 }
+
 void	put_exit(t_vars *vars)
 {
-	int larg;
-    int haut;
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-    larg = 16;
-    haut = 16;
-	vars->img = mlx_xpm_file_to_image(vars->mlx, vars->path.exit, &larg, &haut);
+  	vars->exit.o = 0;
+	vars->img = mlx_xpm_file_to_image(vars->mlx, vars->path.exit, &vars->larg, &vars->haut);
 	while (vars->map.mapnb[i])
 	{
 		if (vars->map.mapnb[i] == 'E')
@@ -50,4 +48,25 @@ void	put_exit(t_vars *vars)
 		}
 		i++;
 	}
+}
+
+void	exit_open(t_vars *vars)
+{
+	vars->img = mlx_xpm_file_to_image(vars->mlx, vars->path.grass, &vars->larg, &vars->haut);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, vars->exit.x, vars->exit.y);
+	vars->img = mlx_xpm_file_to_image(vars->mlx, vars->path.h, &vars->larg, &vars->haut);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, vars->exit.x, vars->exit.y);
+	vars->exit.o = 1;
+}
+
+void	exit_prog(t_vars *vars)
+{
+	free(vars->map.mapb);
+	vars->map.mapb = NULL;
+	free(vars->map.mapnb);
+	vars->map.mapnb = NULL;
+	free(vars->map.mapnbm);
+	vars->map.mapnbm = NULL;
+	printf("\nBravo ! Vous avez gagne\n");
+	exit (1);
 }
