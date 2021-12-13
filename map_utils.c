@@ -2,8 +2,8 @@
 
 int	h_map(char *mem)
 {
-	int i;
-	int resul;
+	int	i;
+	int	resul;
 
 	resul = 0;
 	i = 0;
@@ -33,41 +33,44 @@ int	l_map(char *mem)
 	return (j);
 }
 
-void    error()
+void	error(void)
 {
-    printf("erreur de chargement de map\n");
-    exit (1);
+	printf("erreur de chargement de map\n");
+	exit (1);
 }
 
-int chara(char let, char *mem, int i)
+int	chara(char let, char *mem, int i)
 {
-    while (mem[i])
+	while (mem[i])
 	{
 		if (mem[i] == let)
 			return (1);
 		i++;
 	}
-    return (0);
+	return (0);
 }
 
-void	pos_perso(t_vars *vars, char let, int i, int n)
+void	pos_perso(t_vars *v, char let, int i, int n)
 {
-	int g;
-	int j;
-	
+	int	g;
+	int	j;
+
 	j = 0;
 	g = 0;
-	while (vars->map.mapb[i])
+	n_p(&*v);
+	while (v->map.mapb[i])
 	{
-		if (g >= (l_map(vars->map.mapb) + 1))
+		if (g >= (l_map(v->map.mapb) + 1))
 		{
 			g = 0;
 			j++;
 		}
-		if (vars->map.mapb[i] == let)
+		if (v->map.mapb[i] == let)
+			n++;
+		if (v->map.mapb[i] == let && n == v->perso.nb)
 		{
-			vars->perso.x = (g * 16);
-			vars->perso.y = (j * 16);
+			v->perso.x = (g * 16);
+			v->perso.y = (j * 16);
 			break ;
 		}
 		g++;

@@ -1,29 +1,29 @@
 #include "so_long.h"
 
-static void	grass(t_vars *vars, int i, int g)
+static void	grass(t_vars *v, int i, int g)
 {
-	vars->img = mlx_xpm_file_to_image(vars->mlx, vars->path.grass, &vars->larg, &vars->haut);
-	while (g < (vars->map.h_map * 16))
+	v->img = mlx_xpm_file_to_image(v->mlx, v->path.grass, &v->larg, &v->haut);
+	while (g < (v->map.h_map * 16))
 	{
 		i = 0;
-        while (i < (vars->map.l_map * 16))
-        {
-            mlx_put_image_to_window(vars->mlx, vars->win, vars->img, i, g);
-            i+=16;
-        }
-		g+=16;
+		while (i < (v->map.l_map * 16))
+		{
+			mlx_put_image_to_window(v->mlx, v->win, v->img, i, g);
+			i += 16;
+		}
+		g += 16;
 	}
 }
 
-static void	rock(t_vars *vars, int i, int j, int g)
+static void	rock(t_vars *v, int i, int j, int g)
 {
-	vars->img = mlx_xpm_file_to_image(vars->mlx, vars->path.rock, &vars->larg, &vars->haut);
-	while (vars->map.mapb[g])
+	v->img = mlx_xpm_file_to_image(v->mlx, v->path.rock, &v->larg, &v->haut);
+	while (v->map.mapb[g])
 	{
-		if (vars->map.mapb[g] == '1')
-			mlx_put_image_to_window(vars->mlx, vars->win, vars->img, j, i);
+		if (v->map.mapb[g] == '1')
+			mlx_put_image_to_window(v->mlx, v->win, v->img, j, i);
 		j += 16;
-		if (vars->map.mapb[g] == '\n')
+		if (v->map.mapb[g] == '\n')
 		{
 			i += 16;
 			j = 0;
@@ -32,24 +32,24 @@ static void	rock(t_vars *vars, int i, int j, int g)
 	}
 }
 
-static void	perso(t_vars *vars)
+static void	perso(t_vars *v)
 {
-	pos_perso(&*vars, 'P', 0, 0);
-	vars->img = mlx_xpm_file_to_image(vars->mlx, vars->path.persof, &vars->larg, &vars->haut);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, vars->perso.x, vars->perso.y);
+	pos_perso(&*v, 'P', 0, 0);
+	v->img = mlx_xpm_file_to_image(v->mlx, v->path.persof, &v->larg, &v->haut);
+	mlx_put_image_to_window(v->mlx, v->win, v->img, v->perso.x, v->perso.y);
 }
 
-void	put_grass(t_vars *vars, int x, int y)
+void	put_grass(t_vars *v, int x, int y)
 {
-	vars->img = mlx_xpm_file_to_image(vars->mlx, vars->path.grass, &vars->larg, &vars->haut);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, x, y);
+	v->img = mlx_xpm_file_to_image(v->mlx, v->path.grass, &v->larg, &v->haut);
+	mlx_put_image_to_window(v->mlx, v->win, v->img, x, y);
 }
 
-void    set_image(t_vars *vars)
+void	set_image(t_vars *v)
 {
-	grass(&*vars, 0, 0);
-	rock(&*vars, 0, 0, 0);
-	perso(&*vars);
-	put_chest(&*vars);
-	put_exit(&*vars);
+	grass(&*v, 0, 0);
+	rock(&*v, 0, 0, 0);
+	perso(&*v);
+	put_chest(&*v);
+	put_exit(&*v);
 }

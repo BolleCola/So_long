@@ -1,61 +1,62 @@
 #include "so_long.h"
 
-static void	pos_chest(t_vars *vars, char let, int i, int n)
+static void	pos_chest(t_vars *v, char let, int i, int n)
 {
-	int g;
-	int j;
+	int	g;
+	int	j;
 	int	y;
-	
+
 	j = 0;
 	y = -1;
 	g = 0;
-	while (vars->map.mapb[i])
+	while (v->map.mapb[i])
 	{
-		if (g >= (l_map(vars->map.mapb) + 1))
+		if (g >= (l_map(v->map.mapb) + 1))
 		{
 			g = 0;
 			j++;
 		}
-		if (vars->map.mapb[i] == let)
+		if (v->map.mapb[i] == let)
 			y++;
-		if (vars->map.mapb[i] == 'C' && y == n)
+		if (v->map.mapb[i++] == 'C' && y == n)
 		{
-			vars->chest.x = (g * 16);
-			vars->chest.y = (j * 16);
-			vars->chest.nb = vars->chest.nb + 1;
+			v->chest.x = (g * 16);
+			v->chest.y = (j * 16);
+			v->chest.nb = v->chest.nb + 1;
 			break ;
 		}
 		g++;
-		i++;
 	}
 }
-void	put_chest(t_vars *vars)
+
+void	put_chest(t_vars *v)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-    vars->img = mlx_xpm_file_to_image(vars->mlx, vars->path.chest, &vars->larg, &vars->haut);
-	while (vars->map.mapnb[i])
+	v->img = mlx_xpm_file_to_image(v->mlx, v->path.chest, &v->larg, &v->haut);
+	while (v->map.mapnb[i])
 	{
-		if (vars->map.mapnb[i] == 'C')
+		if (v->map.mapnb[i] == 'C')
 		{
-			pos_chest(&*vars, 'C', 0, j);
-			mlx_put_image_to_window(vars->mlx, vars->win, vars->img, vars->chest.x, vars->chest.y);
+			pos_chest(&*v, 'C', 0, j);
+			mlx_put_image_to_window(v->mlx, v->win, v->img,
+				v->chest.x, v->chest.y);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	chest_open(t_vars *vars)
+void	chest_open(t_vars *v)
 {
-	vars->img = mlx_xpm_file_to_image(vars->mlx, vars->path.chesto, &vars->larg, &vars->haut);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img,  vars->perso.x, vars->perso.y);
-	if (vars->map.mapnbm[vars->perso.i] == 'C')
-		vars->chest.nb = vars->chest.nb - 1;
-	vars->map.mapnbm[vars->perso.i] = '0';
-	if (vars->chest.nb == 0)
-		exit_open(&*vars);
+	v->img = mlx_xpm_file_to_image(v->mlx, v->path.chesto, &v->larg, &v->haut);
+	mlx_put_image_to_window(v->mlx, v->win, v->img, v->perso.x, v->perso.y);
+	if (v->map.mapnbm[v->perso.i] == 'C')
+		v->chest.nb = v->chest.nb - 1;
+	v->map.mapnbm[v->perso.i] = '0';
+	if (v->chest.nb == 0)
+		exit_open(&*v);
 }

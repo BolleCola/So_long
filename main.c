@@ -1,39 +1,42 @@
 #include "so_long.h"
 
-static void esc(t_vars *vars)
+static void	esc(t_vars *v)
 {
-    mlx_destroy_window(vars->mlx, vars->win);
-	exit_prog(&*vars);
+	mlx_destroy_window(v->mlx, v->win);
+	exit_prog(&*v);
 }
 
-static int    keyhook(int keycode, t_vars *vars)
+static int	keyhook(int keycode, t_vars *v)
 {
-    if (keycode == 53)
-        esc(&*vars);
-    if (keycode == 13)
-        front(&*vars);
-    if (keycode == 1)
-        back(&*vars);
-    if (keycode == 0)
-        left(&*vars);
-    if (keycode == 2)
-        right(&*vars);
-    return (0);
+	if (keycode == 53)
+		esc(&*v);
+	if (keycode == 13)
+		front(&*v);
+	if (keycode == 1)
+		back(&*v);
+	if (keycode == 0)
+		left(&*v);
+	if (keycode == 2)
+		right(&*v);
+	return (0);
 }
 
-int main ()
+int	main(void)
 {
-    t_vars  vars;
+	t_vars	v;
 
-    generate_map(&vars);
-    path(&vars);
-    cal_i(&vars);
-	vars.haut = 16;
-	vars.larg = 16;
-	vars.chest.nb = 0;
-    vars.mlx = mlx_init();
-    vars.win = mlx_new_window(vars.mlx, (vars.map.l_map * 16), (vars.map.h_map * 16), "Bolle's Dungeon !!!");
-    set_image(&vars);
-    mlx_key_hook(vars.win, keyhook, &vars);
-    mlx_loop(vars.mlx);
+	generate_map(&v);
+	path(&v);
+	cal_i(&v);
+	v.enn.m = 0;
+	v.haut = 16;
+	v.larg = 16;
+	v.chest.nb = 0;
+	v.mlx = mlx_init();
+	v.win = mlx_new_window(v.mlx, (v.map.l_map * 16),
+			(v.map.h_map * 16), "Bolle's Dungeon !!!");
+	set_image(&v);
+	mlx_key_hook(v.win, keyhook, &v);
+	put_enn(&v);
+	mlx_loop(v.mlx);
 }

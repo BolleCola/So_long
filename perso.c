@@ -1,107 +1,119 @@
 #include "so_long.h"
 
-void	cal_i(t_vars *vars)
+void	cal_i(t_vars *v)
 {
 	int	j;
 	int	c;
 
 	c = 0;
 	j = 0;
-	while (vars->map.mapb[j])
+	while (v->map.mapb[j])
 	{
-		if (vars->map.mapb[j] == '\n')
+		if (v->map.mapb[j] == '\n')
 			c++;
-		if (vars->map.mapb[j] == 'P')
-			vars->perso.i = (j - c);
+		if (v->map.mapb[j] == 'P')
+			v->perso.i = (j - c);
 		j++;
 	}
-
 }
 
-void    front(t_vars *vars)
-{
-	int	larg;
-	int	haut;
-	
-    vars->img = mlx_xpm_file_to_image(vars->mlx, vars->path.persob, &vars->haut, &vars->larg);
-	if (vars->map.mapnb[vars->perso.i - l_map(vars->map.mapb)] != '1')
-	{
-		vars->perso.i -= l_map(vars->map.mapb);
-		larg = vars->perso.x;
-		haut = vars->perso.y;
-		vars->perso.y -= 16;
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->img, vars->perso.x, vars->perso.y);
-		if (vars->map.mapnb[vars->perso.i] == 'C')
-			chest_open(&*vars);
-		if (vars->map.mapnb[vars->perso.i + l_map(vars->map.mapb)] != 'C')
-			put_grass(&*vars, larg, haut);
-		if (vars->map.mapnb[vars->perso.i] == 'E' && vars->exit.o == 1)
-			exit_prog(&*vars);
-	}
-}
-
-void    back(t_vars *vars)
-{
-	int	larg;
-	int	haut;
-	
-  	vars->img = mlx_xpm_file_to_image(vars->mlx, vars->path.persof, &vars->haut, &vars->larg);
-	if (vars->map.mapnb[vars->perso.i + l_map(vars->map.mapb)] != '1')
-	{
-		vars->perso.i += l_map(vars->map.mapb);
-		larg = vars->perso.x;
-		haut = vars->perso.y;
-		vars->perso.y += 16;
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->img, vars->perso.x, vars->perso.y);
-		if (vars->map.mapnb[vars->perso.i] == 'C')
-			chest_open(&*vars);
-		if (vars->map.mapnb[vars->perso.i - l_map(vars->map.mapb)] != 'C')
-			put_grass(&*vars, larg, haut);
-		if (vars->map.mapnb[vars->perso.i] == 'E' && vars->exit.o == 1)
-			exit_prog(&*vars);
-	}
-}
-
-void    left(t_vars *vars)
+void	front(t_vars *v)
 {
 	int	larg;
 	int	haut;
 
-    vars->img = mlx_xpm_file_to_image(vars->mlx, vars->path.persor, &vars->haut, &vars->larg);
-	if (vars->map.mapnb[vars->perso.i - 1] != '1')
+	v->img = mlx_xpm_file_to_image(v->mlx, v->path.persob, &v->haut, &v->larg);
+	if (v->map.mapnb[v->perso.i - l_map(v->map.mapb)] != '1')
 	{
-		vars->perso.i -= 1;
-		larg = vars->perso.x;
-		haut = vars->perso.y;
-		vars->perso.x -= 16;
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->img, vars->perso.x, vars->perso.y);
-		if (vars->map.mapnb[vars->perso.i] == 'C')
-			chest_open(&*vars);
-		if (vars->map.mapnb[vars->perso.i + 1] != 'C')
-			put_grass(&*vars, larg, haut);
-		if (vars->map.mapnb[vars->perso.i] == 'E' && vars->exit.o == 1)
-			exit_prog(&*vars);
+		v->perso.i -= l_map(v->map.mapb);
+		larg = v->perso.x;
+		haut = v->perso.y;
+		v->perso.y -= 16;
+		mlx_put_image_to_window(v->mlx, v->win, v->img, v->perso.x,
+			v->perso.y);
+		if (v->map.mapnb[v->perso.i] == 'C')
+			chest_open(&*v);
+		if (v->map.mapnb[v->perso.i + l_map(v->map.mapb)] != 'C')
+			put_grass(&*v, larg, haut);
+		if (v->map.mapnbm[v->perso.i] == 'E' && v->exit.o == 1)
+			exit_prog(&*v);
+		if (v->map.mapnb[v->perso.i + l_map(v->map.mapb)] == 'E')
+			put_sign(&*v, larg, haut);
 	}
 }
 
-void    right(t_vars *vars)
+void	back(t_vars *v)
 {
-    int larg;
-    int haut;
+	int	larg;
+	int	haut;
 
-	vars->img = mlx_xpm_file_to_image(vars->mlx, vars->path.persol, &vars->haut, &vars->larg);
-	if (vars->map.mapnb[vars->perso.i + 1] != '1')
+	v->img = mlx_xpm_file_to_image(v->mlx, v->path.persof, &v->haut, &v->larg);
+	if (v->map.mapnb[v->perso.i + l_map(v->map.mapb)] != '1')
 	{
-		vars->perso.i += 1;
-		larg = vars->perso.x;
-		haut = vars->perso.y;
-		vars->perso.x += 16;
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->img, vars->perso.x, vars->perso.y);
-		if (vars->map.mapnb[vars->perso.i] == 'C')
-			chest_open(&*vars);
-		if (vars->map.mapnb[vars->perso.i - 1] != 'C')
-			put_grass(&*vars, larg, haut);
-		if (vars->map.mapnb[vars->perso.i] == 'E' && vars->exit.o == 1)
-			exit_prog(&*vars);
+		v->perso.i += l_map(v->map.mapb);
+		larg = v->perso.x;
+		haut = v->perso.y;
+		v->perso.y += 16;
+		mlx_put_image_to_window(v->mlx, v->win, v->img, v->perso.x,
+			v->perso.y);
+		if (v->map.mapnb[v->perso.i] == 'C')
+			chest_open(&*v);
+		if (v->map.mapnb[v->perso.i - l_map(v->map.mapb)] != 'C')
+			put_grass(&*v, larg, haut);
+		if (v->map.mapnb[v->perso.i] == 'E' && v->exit.o == 1)
+			exit_prog(&*v);
+		if (v->map.mapnb[v->perso.i - l_map(v->map.mapb)] == 'E')
+			put_sign(&*v, larg, haut);
+	}
+}
+
+void	left(t_vars *v)
+{
+	int	larg;
+	int	haut;
+
+	v->img = mlx_xpm_file_to_image(v->mlx, v->path.persor, &v->haut, &v->larg);
+	if (v->map.mapnb[v->perso.i - 1] != '1')
+	{
+		v->perso.i -= 1;
+		larg = v->perso.x;
+		haut = v->perso.y;
+		v->perso.x -= 16;
+		mlx_put_image_to_window(v->mlx, v->win, v->img, v->perso.x,
+			v->perso.y);
+		if (v->map.mapnb[v->perso.i] == 'C')
+			chest_open(&*v);
+		if (v->map.mapnb[v->perso.i + 1] != 'C')
+			put_grass(&*v, larg, haut);
+		if (v->map.mapnb[v->perso.i] == 'E' && v->exit.o == 1)
+			exit_prog(&*v);
+		if (v->map.mapnb[v->perso.i + 1] == 'E')
+			put_sign(&*v, larg, haut);
+	}
+}
+
+void	right(t_vars *v)
+{
+	int	larg;
+	int	haut;
+
+	v->img = mlx_xpm_file_to_image(v->mlx, v->path.persol, &v->haut,
+			&v->larg);
+	if (v->map.mapnb[v->perso.i + 1] != '1')
+	{
+		v->perso.i += 1;
+		larg = v->perso.x;
+		haut = v->perso.y;
+		v->perso.x += 16;
+		mlx_put_image_to_window(v->mlx, v->win, v->img, v->perso.x,
+			v->perso.y);
+		if (v->map.mapnb[v->perso.i] == 'C')
+			chest_open(&*v);
+		if (v->map.mapnb[v->perso.i - 1] != 'C')
+			put_grass(&*v, larg, haut);
+		if (v->map.mapnb[v->perso.i] == 'E' && v->exit.o == 1)
+			exit_prog(&*v);
+		if (v->map.mapnb[v->perso.i - 1] == 'E')
+			put_sign(&*v, larg, haut);
 	}
 }

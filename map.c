@@ -22,31 +22,32 @@ static void	error_map_two(char *mem)
 	c = 0;
 	while (mem[c])
 	{
-		if (mem[c] != '1' && mem[c] != 'C' && mem[c] != '0' && mem[c] != 'E' 
+		if (mem[c] != '1' && mem[c] != 'C' && mem[c] != '0' && mem[c] != 'E'
 			&& mem[c] != 'P' && mem[c] != '\n' && mem[c] != '\0')
 			error();
 		c++;
 	}
 }
 
-static void	error_map(t_vars *vars, char *mem, int x, int c)
+static void	error_map(t_vars *v, char *mem, int x, int c)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	j = (ft_strlen(vars->map.mapnb) - 1);
+	j = (ft_strlen(v->map.mapnb) - 1);
 	while (i <= l_map(mem))
 	{
-		if (vars->map.mapnb[i] != '1' || vars->map.mapnb[j] != '1')
+		if (v->map.mapnb[i] != '1' || v->map.mapnb[j] != '1')
 			error();
 		i++;
 		j--;
 	}
 	i--;
-	while (i < (ft_strlen(vars->map.mapnb) - (l_map(mem))))
+	while (i < (ft_strlen(v->map.mapnb) - (l_map(mem))))
 	{
-		if (vars->map.mapnb[i + (l_map(mem) - 1)] == '1' && vars->map.mapnb[i + l_map(mem)] == '1')
+		if (v->map.mapnb[i + (l_map(mem) - 1)] == '1' && v->map.mapnb[i
+				+ l_map(mem)] == '1')
 			i += l_map(mem);
 		else
 			error();
@@ -54,9 +55,9 @@ static void	error_map(t_vars *vars, char *mem, int x, int c)
 	error_map_two(mem);
 }
 
-static void create_nb(t_vars *vars, char *mem)
+static void	create_nb(t_vars *v, char *mem)
 {
-	char 	*memnb;
+	char	*memnb;
 	int		i;
 	int		j;
 
@@ -78,37 +79,37 @@ static void create_nb(t_vars *vars, char *mem)
 		memnb[j++] = mem[i++];
 	}
 	memnb[j] = '\0';
-	vars->map.mapnb = ft_strdup(memnb);
-	vars->map.mapnbm = ft_strdup(memnb);
+	v->map.mapnb = ft_strdup(memnb);
+	v->map.mapnbm = ft_strdup(memnb);
 	free(memnb);
 }
 
-static void	create_win(t_vars *vars, char *mem)
+static void	create_win(t_vars *v, char *mem)
 {
 	int		i;
-	
+
 	i = 0;
-	vars->wind.h = 0;
-	vars->wind.l = 0;
+	v->wind.h = 0;
+	v->wind.l = 0;
 	while (mem[i] != '\n')
 	{
-		vars->wind.l+=16;
+		v->wind.l += 16;
 		i++;
 	}
 	i = 0;
 	while (mem[i])
 	{
 		if (mem[i] == '\n')
-			vars->wind.h+=16;
+			v->wind.h += 16;
 		i++;
 	}
-	vars->wind.h+=16;
+	v->wind.h += 16;
 }
 
-void	generate_map(t_vars *vars)
+void	generate_map(t_vars *v)
 {
-    int     fd;
-    char    *buff;
+	int		fd;
+	char	*buff;
 	char	*mem;
 
 	mem = ft_strdup("");
@@ -122,11 +123,11 @@ void	generate_map(t_vars *vars)
 		free(buff);
 	}
 	close(fd);
-	create_nb(&*vars, mem);
-	create_win(&*vars, mem);
-	error_map(&*vars, mem, 0, 0);
-	vars->map.mapb = ft_strdup(mem);
-	vars->map.h_map = h_map(mem);
-	vars->map.l_map = l_map(mem);
+	create_nb(&*v, mem);
+	create_win(&*v, mem);
+	error_map(&*v, mem, 0, 0);
+	v->map.mapb = ft_strdup(mem);
+	v->map.h_map = h_map(mem);
+	v->map.l_map = l_map(mem);
 	free(mem);
 }

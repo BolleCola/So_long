@@ -46,4 +46,24 @@ void	path(t_vars *vars)
 	vars->path.persob = "./pack/xpm/perso_b.xpm";
 	vars->path.persol = "./pack/xpm/perso_d.xpm";
 	vars->path.persor = "./pack/xpm/perso_g.xpm";
+	vars->path.ennf = "./pack/xpm/Enn_f.xpm";
+	vars->path.ennb = "./pack/xpm/Enn_b.xpm";
+	vars->path.ennl = "./pack/xpm/Enn_l.xpm";
+	vars->path.ennr = "./pack/xpm/Enn_r.xpm";
+}
+
+void	n_p(t_vars *v)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	while (v->map.mapb[i])
+	{
+		if (v->map.mapb[i] == 'P')
+			j++;
+		i++;
+	}
+	v->perso.nb = j;
 }
