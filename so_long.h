@@ -65,7 +65,8 @@ typedef struct s_perso{
 typedef struct	s_enn{
 	int	x;
 	int	y;
-	int	m;
+	int	yon;
+	int inb;
 }	t_enn;
 
 typedef struct s_vars{
@@ -152,5 +153,9 @@ void	put_enn(t_vars *v);
 void	n_p(t_vars *v);
 
 void	put_sign(t_vars *v, int x, int y);
+
+void	move_enn(t_vars *v);
+
+void	put_enn_two(t_vars *v);
 
 #endif

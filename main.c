@@ -11,13 +11,25 @@ static int	keyhook(int keycode, t_vars *v)
 	if (keycode == 53)
 		esc(&*v);
 	if (keycode == 13)
+	{
 		front(&*v);
+		move_enn(&*v)
+	}
 	if (keycode == 1)
+	{
 		back(&*v);
-	if (keycode == 0)
+		move_enn(&*v)
+	}
+	if (keycode == 0)	
+	{
 		left(&*v);
-	if (keycode == 2)
+		move_enn(&*v)
+	}
+	if (keycode == 2)	
+	{
 		right(&*v);
+		move_enn(&*v)
+	}
 	return (0);
 }
 
@@ -28,7 +40,7 @@ int	main(void)
 	generate_map(&v);
 	path(&v);
 	cal_i(&v);
-	v.enn.m = 0;
+	v.enn.yon = 0;
 	v.haut = 16;
 	v.larg = 16;
 	v.chest.nb = 0;
