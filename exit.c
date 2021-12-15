@@ -69,10 +69,14 @@ void	exit_open(t_vars *v)
 		if (v->map.mapnb[i] == 'E')
 		{
 			pos_exit(&*v, 'E', 0, j);
-			v->img = mlx_xpm_file_to_image(v->mlx, v->path.grass, &v->larg, &v->haut);
-			mlx_put_image_to_window(v->mlx, v->win, v->img, v->exit.x, v->exit.y);
-			v->img = mlx_xpm_file_to_image(v->mlx, v->path.h, &v->larg, &v->haut);
-			mlx_put_image_to_window(v->mlx, v->win, v->img, v->exit.x, v->exit.y);
+			v->img = mlx_xpm_file_to_image(v->mlx, v->path.grass, &v->larg,
+					&v->haut);
+			mlx_put_image_to_window(v->mlx, v->win, v->img, v->exit.x,
+				v->exit.y);
+			v->img = mlx_xpm_file_to_image(v->mlx, v->path.h, &v->larg,
+					&v->haut);
+			mlx_put_image_to_window(v->mlx, v->win, v->img, v->exit.x,
+				v->exit.y);
 			j++;
 		}
 		i++;

@@ -62,11 +62,12 @@ typedef struct s_perso{
 	int	nb;
 }	t_perso;
 
-typedef struct	s_enn{
-	int	x;
-	int	y;
-	int	yon;
-	int inb;
+typedef struct s_enn{
+	int		x;
+	int		y;
+	int		yon;
+	int		inb;
+	char	let;
 }	t_enn;
 
 typedef struct s_vars{
@@ -75,6 +76,7 @@ typedef struct s_vars{
 	void	*img;
 	int		haut;
 	int		larg;
+	int		count;
 	t_map	map;
 	t_wind	wind;
 	t_path	path;
@@ -157,5 +159,13 @@ void	put_sign(t_vars *v, int x, int y);
 void	move_enn(t_vars *v);
 
 void	put_enn_two(t_vars *v);
+
+void	put_chest_open(t_vars *v, int x, int y);
+
+void	crash_enn(t_vars *v);
+
+int		rallonge(t_vars *v, char lett);
+
+int		rallonge_two(t_vars *v, char lett);
 
 #endif

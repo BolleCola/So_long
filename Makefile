@@ -20,7 +20,7 @@ CC = gcc
 
 RM = rm -f
 
-PNTC = main.c main_utilitis.c map.c map_two.c map_utils.c get_line_map.c get_line_utils.c exit.c chest.c perso.c ennemi.c enn_utils.c
+PNTC = main.c main_utilitis.c map.c map_two.c map_utils.c get_line_map.c get_line_utils.c exit.c chest.c perso.c ennemi.c enn_utils.c enn_utils_two.c
 
 PNTO = $(PNTC:.c=.o)
 

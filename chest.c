@@ -56,7 +56,13 @@ void	chest_open(t_vars *v)
 	mlx_put_image_to_window(v->mlx, v->win, v->img, v->perso.x, v->perso.y);
 	if (v->map.mapnbm[v->perso.i] == 'C')
 		v->chest.nb = v->chest.nb - 1;
-	v->map.mapnbm[v->perso.i] = '0';
+	v->map.mapnbm[v->perso.i] = '5';
 	if (v->chest.nb == 0)
 		exit_open(&*v);
+}
+
+void	put_chest_open(t_vars *v, int x, int y)
+{
+	v->img = mlx_xpm_file_to_image(v->mlx, v->path.chesto, &v->larg, &v->haut);
+	mlx_put_image_to_window(v->mlx, v->win, v->img, x, y);
 }
