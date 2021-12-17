@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpaquier <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/17 14:18:59 by tpaquier          #+#    #+#             */
+/*   Updated: 2021/12/17 14:19:00 by tpaquier         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -86,7 +98,9 @@ typedef struct s_vars{
 	t_enn	enn;
 }	t_vars;
 
-void	generate_map(t_vars *vars);
+void	error_ber(char *argv);
+
+void	generate_map(t_vars *vars, char *argv);
 
 void	*ft_calloc(size_t count, size_t size);
 
@@ -116,7 +130,7 @@ void	snd_create_map(t_vars *vars, char *mem, char **mp);
 
 void	*ft_calloc_two(size_t count, size_t size);
 
-void	error(void);
+void	error(char *mem, t_vars *v);
 
 int		chara(char let, char *mem, int i);
 
@@ -148,7 +162,7 @@ void	chest_open(t_vars *vars);
 
 void	exit_open(t_vars *vars);
 
-void	exit_prog(t_vars *vars);
+int		exit_prog(t_vars *vars);
 
 void	put_enn(t_vars *v);
 
@@ -167,5 +181,7 @@ void	crash_enn(t_vars *v);
 int		rallonge(t_vars *v, char lett);
 
 int		rallonge_two(t_vars *v, char lett);
+
+void	map_exit(void);
 
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpaquier <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/17 14:18:20 by tpaquier          #+#    #+#             */
+/*   Updated: 2021/12/17 14:18:22 by tpaquier         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 int	h_map(char *mem)
@@ -33,9 +45,13 @@ int	l_map(char *mem)
 	return (j);
 }
 
-void	error(void)
+void	error(char *mem, t_vars *v)
 {
 	printf("erreur de chargement de map\n");
+	free(mem);
+	free(v->map.mapb);
+	free(v->map.mapnb);
+	free(v->map.mapnbm);
 	exit (1);
 }
 

@@ -1,22 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpaquier <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/17 14:18:29 by tpaquier          #+#    #+#             */
+/*   Updated: 2021/12/17 14:18:30 by tpaquier         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-static void	error_map_two(char *mem)
+static void	error_map_two(char *mem, t_vars *v)
 {
 	int	c;
 
 	c = 0;
 	if (chara('C', mem, 0) == 0)
-		error();
+		error(mem, &*v);
 	if (chara('E', mem, 0) == 0)
-		error();
+		error(mem, &*v);
 	if (chara('P', mem, 0) == 0)
-		error();
+		error(mem, &*v);
 	if (h_map(mem) >= l_map(mem))
-		error();
+		error(mem, &*v);
 	while (c < ft_strlen(mem))
 	{
 		if (l_map(&mem[0]) != l_map(&mem[c]))
-			error();
+			error(mem, &*v);
 		c += (l_map(mem) + 1);
 	}
 	c = 0;
@@ -24,7 +36,7 @@ static void	error_map_two(char *mem)
 	{
 		if (mem[c] != '1' && mem[c] != 'C' && mem[c] != '0' && mem[c] != 'E'
 			&& mem[c] != 'P' && mem[c] != '\n' && mem[c] != '\0')
-			error();
+			error(mem, &*v);
 		c++;
 	}
 }
@@ -39,7 +51,7 @@ static void	error_map(t_vars *v, char *mem, int x, int c)
 	while (i <= l_map(mem))
 	{
 		if (v->map.mapnb[i] != '1' || v->map.mapnb[j] != '1')
-			error();
+			error(mem, &*v);
 		i++;
 		j--;
 	}
@@ -50,9 +62,9 @@ static void	error_map(t_vars *v, char *mem, int x, int c)
 				+ l_map(mem)] == '1')
 			i += l_map(mem);
 		else
-			error();
+			error(mem, &*v);
 	}
-	error_map_two(mem);
+	error_map_two(mem, &*v);
 }
 
 static void	create_nb(t_vars *v, char *mem)
@@ -106,15 +118,18 @@ static void	create_win(t_vars *v, char *mem)
 	v->wind.h += 16;
 }
 
-void	generate_map(t_vars *v)
+void	generate_map(t_vars *v, char *argv)
 {
 	int		fd;
 	char	*buff;
 	char	*mem;
 
+	error_ber(argv);
+	fd = open(argv, O_RDONLY);
+	if (fd < 0)
+		map_exit();
 	mem = ft_strdup("");
 	buff = ft_strdup("");
-	fd = open("map.ber", O_RDONLY);
 	while (buff != NULL)
 	{		
 		buff = get_next_line(fd);
@@ -122,12 +137,12 @@ void	generate_map(t_vars *v)
 			mem = ft_strjoin(mem, buff);
 		free(buff);
 	}
+	v->map.mapb = ft_strdup(mem);
+	v->map.h_map = h_map(mem);
+	v->map.l_map = l_map(mem);
 	close(fd);
 	create_nb(&*v, mem);
 	create_win(&*v, mem);
 	error_map(&*v, mem, 0, 0);
-	v->map.mapb = ft_strdup(mem);
-	v->map.h_map = h_map(mem);
-	v->map.l_map = l_map(mem);
 	free(mem);
 }

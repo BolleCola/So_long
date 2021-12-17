@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpaquier <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/17 14:17:27 by tpaquier          #+#    #+#             */
+/*   Updated: 2021/12/17 14:17:29 by tpaquier         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void	put_sign(t_vars *v, int x, int y)
@@ -84,8 +96,10 @@ void	exit_open(t_vars *v)
 	v->exit.o = 1;
 }
 
-void	exit_prog(t_vars *v)
+int	exit_prog(t_vars *v)
 {
+	mlx_destroy_window(v->mlx, v->win);
+	mlx_destroy_image(v->mlx, v->img);
 	free(v->map.mapb);
 	v->map.mapb = NULL;
 	free(v->map.mapnb);
@@ -93,4 +107,5 @@ void	exit_prog(t_vars *v)
 	free(v->map.mapnbm);
 	v->map.mapnbm = NULL;
 	exit (1);
+	return (0);
 }

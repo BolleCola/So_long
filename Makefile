@@ -31,7 +31,7 @@ $(NAME) : $(PNTC)
 	@cp ./mlx/libmlx.a $(NAME)
 	@$(CC) $(CFLAG) -c $(PNTC)
 	@ar $(ARFLAGS) $(NAME) $(PNTO)
-	@$(CC) -Lmlx -lmlx -framework OpenGL -framework AppKit $(NAME)
+	@$(CC) $(CFLAGS) -Lmlx -lmlx -framework OpenGL -framework AppKit $(NAME)
 
 clean :
 	@$(MAKE) -C ./mlx clean
@@ -39,8 +39,11 @@ clean :
 
 fclean : 
 	@$(MAKE) -C ./mlx clean
-	@/bin/$(RM) $(PNTO) $(NAME)
+	@/bin/$(RM) $(PNTO) $(NAME) ./a.out
+
+valgrind :
+	valgrind --leak-chek=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt -s ./a.out
 
 re : fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re valgrind
