@@ -66,6 +66,7 @@ int	main(int argc, char *argv[])
 	generate_map(&v, argv[1]);
 	path(&v);
 	cal_i(&v);
+	v.enn.yon = 0;
 	v.haut = 16;
 	v.larg = 16;
 	v.chest.nb = 0;
@@ -75,6 +76,7 @@ int	main(int argc, char *argv[])
 			(v.map.h_map * 16), "Bolle's Dungeon !!!");
 	set_image(&v);
 	mlx_key_hook(v.win, keyhook, &v);
+	put_enn(&v);
 	mlx_hook(v.win, 17, 1L << 0, exit_prog, &v);
 	mlx_loop(v.mlx);
 }

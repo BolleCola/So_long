@@ -74,6 +74,14 @@ typedef struct s_perso{
 	int	nb;
 }	t_perso;
 
+typedef struct s_enn{
+	int		x;
+	int		y;
+	int		yon;
+	int		inb;
+	char	let;
+}	t_enn;
+
 typedef struct s_vars{
 	void	*mlx;
 	void	*win;
@@ -87,6 +95,7 @@ typedef struct s_vars{
 	t_chest	chest;
 	t_perso	perso;
 	t_exit	exit;
+	t_enn	enn;
 }	t_vars;
 
 void	error_ber(char *argv);
@@ -155,11 +164,19 @@ void	exit_open(t_vars *vars);
 
 int		exit_prog(t_vars *vars);
 
+void	put_enn(t_vars *v);
+
 void	n_p(t_vars *v);
 
 void	put_sign(t_vars *v, int x, int y);
 
+void	move_enn(t_vars *v);
+
+void	put_enn_two(t_vars *v);
+
 void	put_chest_open(t_vars *v, int x, int y);
+
+void	crash_enn(t_vars *v);
 
 int		rallonge(t_vars *v, char lett);
 

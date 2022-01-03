@@ -20,7 +20,7 @@ CC = gcc
 
 RM = rm -f
 
-PNTC = main.c main_utilitis.c map.c map_two.c map_utils.c get_line_map.c get_line_utils.c exit.c chest.c perso.c ennemi.c enn_utils.c enn_utils_two.c
+PNTC = main.c main_utilitis.c map.c map_two.c map_utils.c get_line_map.c get_line_utils.c exit.c chest.c perso.c
 
 PNTO = $(PNTC:.c=.o)
 
@@ -41,8 +41,19 @@ fclean :
 	@$(MAKE) -C ./mlx clean
 	@/bin/$(RM) $(PNTO) $(NAME) ./a.out
 
-valgrind :
-	valgrind --leak-chek=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt -s ./a.out
+make bonus :
+	@make
+	@$(MAKE) -C ./Bonus
+	@cp ./Bonus/bonus.a bonus.a
+	@$(CC) $(CFLAGS) -Lmlx -lmlx -framework OpenGL -framework AppKit $(NAME)
+
+clean bonus :
+	@$(MAKE) -C ./mlx clean
+	@./Bonus make clean
+
+fclean bonus :
+	@$(MAKE) -C ./mlx clean
+	@./Bonus make fclean
 
 re : fclean all
 

@@ -51,6 +51,8 @@ void	front(t_vars *v)
 			exit_prog(&*v);
 		if (v->map.mapnb[v->perso.i + l_map(v->map.mapb)] == 'E')
 			put_sign(&*v, larg, haut);
+		if (v->perso.i == v->enn.inb)
+			crash_enn(&*v);
 		if (v->map.mapnbm[v->perso.i + l_map(v->map.mapb)] == '5')
 			put_chest_open(&*v, larg, haut);
 	}
@@ -78,6 +80,8 @@ void	back(t_vars *v)
 			exit_prog(&*v);
 		if (v->map.mapnb[v->perso.i - l_map(v->map.mapb)] == 'E')
 			put_sign(&*v, larg, haut);
+		if (v->perso.i == v->enn.inb)
+			crash_enn(&*v);
 		if (v->map.mapnbm[v->perso.i - l_map(v->map.mapb)] == '5')
 			put_chest_open(&*v, larg, haut);
 	}
@@ -105,6 +109,8 @@ void	left(t_vars *v)
 			exit_prog(&*v);
 		if (v->map.mapnb[v->perso.i + 1] == 'E')
 			put_sign(&*v, larg, haut);
+		if (v->perso.i == v->enn.inb)
+			crash_enn(&*v);
 		if (v->map.mapnbm[v->perso.i + 1] == '5')
 			put_chest_open(&*v, larg, haut);
 	}
@@ -132,6 +138,8 @@ void	right(t_vars *v)
 			exit_prog(&*v);
 		if (v->map.mapnb[v->perso.i - 1] == 'E')
 			put_sign(&*v, larg, haut);
+		if (v->perso.i == v->enn.inb)
+			crash_enn(&*v);
 		if (v->map.mapnbm[v->perso.i - 1] == '5')
 			put_chest_open(&*v, larg, haut);
 	}

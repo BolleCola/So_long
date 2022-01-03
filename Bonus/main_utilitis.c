@@ -48,16 +48,20 @@ size_t	ft_strlen(const char *str)
 
 void	path(t_vars *vars)
 {
-	vars->path.chest = "./pack/xpm/chest_c.xpm";
-	vars->path.chesto = "./pack/xpm/chest_o.xpm";
-	vars->path.exit = "./pack/xpm/Sign.xpm";
-	vars->path.h = "./pack/xpm/Heart.xpm";
-	vars->path.grass = "./pack/xpm/Grass.xpm";
-	vars->path.rock = "./pack/xpm/Rock.xpm";
-	vars->path.persof = "./pack/xpm/perso_f.xpm";
-	vars->path.persob = "./pack/xpm/perso_b.xpm";
-	vars->path.persol = "./pack/xpm/perso_d.xpm";
-	vars->path.persor = "./pack/xpm/perso_g.xpm";
+	vars->path.chest = "../pack/xpm/chest_c.xpm";
+	vars->path.chesto = "../pack/xpm/chest_o.xpm";
+	vars->path.exit = "../pack/xpm/Sign.xpm";
+	vars->path.h = "../pack/xpm/Heart.xpm";
+	vars->path.grass = "../pack/xpm/Grass.xpm";
+	vars->path.rock = "../pack/xpm/Rock.xpm";
+	vars->path.persof = "../pack/xpm/perso_f.xpm";
+	vars->path.persob = "../pack/xpm/perso_b.xpm";
+	vars->path.persol = "../pack/xpm/perso_d.xpm";
+	vars->path.persor = "../pack/xpm/perso_g.xpm";
+	vars->path.ennf = "../pack/xpm/Enn_f.xpm";
+	vars->path.ennb = "../pack/xpm/Enn_b.xpm";
+	vars->path.ennl = "../pack/xpm/Enn_l.xpm";
+	vars->path.ennr = "../pack/xpm/Enn_r.xpm";
 }
 
 void	n_p(t_vars *v)
